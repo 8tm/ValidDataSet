@@ -1,0 +1,31 @@
+# PyCharm
+.idea/
+
+# PyEnv
+.venv/
+
+# MyPy
+.mypy_cache/
+mypy_module_report/
+mypy_tests_report/
+
+# PyTest
+.pytest_cache/
+
+# Release
+build/
+dist/
+
+# Coverage
+htmlcov/
+.coverage
+
+# Others
+*.egg-info/
+*.pyc
+.python-version
+__pycache__/
+*.*~
+
+# old files etc
+__useless__/

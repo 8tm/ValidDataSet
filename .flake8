@@ -1,0 +1,14 @@
+[flake8]
+application-import-names = vds, tests
+format = ${cyan}%(path)s${reset}:${yellow_bold}%(row)d${reset}:${green_bold}%(col)d${reset}: ${red_bold}%(code)s${reset} %(text)s
+max-line-length = 120
+ignore = W503
+max-complexity = 10
+import-order-style = pep8
+inline-quotes = single
+multiline-quotes = '''
+docstring-quotes = """
+show-source = True
+extend-ignore =
+    # See https://github.com/PyCQA/pycodestyle/issues/373
+    E203,
