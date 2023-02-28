@@ -1,0 +1,85 @@
+[tool.poetry]
+name = "vds"
+version = "23.2.27"
+description = "ValidDataSet - TTS Lj Speech Dataset Validator"
+authors = ["Tadeusz Miszczyk <42252259+8tm@users.noreply.github.com>"]
+homepage = "http://github.com/8tm/ValidDataSet"
+documentation = "https://pypi.org/project/vds"
+repository = "http://github.com/8tm/ValidDataSet"
+readme = "README.md"
+
+
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3 :: Only",
+    "Operating System :: Unix",
+]
+
+
+[tool.poetry.dependencies]
+# Tested on python 3.8.16 and 3.10.6
+python = ">=3.8.1,<4.0"
+
+tqdm = "^4.64.1"
+colorama = "^0.4.6"
+rich = "^13.3.1"
+
+
+[tool.poetry.dev-dependencies]
+types-colorama = "^0.4.15.8"
+types-tqdm = "^4.64.7.16"
+
+flake8 = "^6.0.0"
+flake8-colors = "^0.1.9"
+flake8-commas = "^2.1.0"
+flake8-import-order = "^0.18.2"
+flake8-quotes = "^3.3.0"
+
+mypy = "^1.0.1"
+
+pylint = "^2.5.0"
+
+pytest = "^7.2.0"
+pytest-cov = "^2.10.1"
+pytest-mock = "^3.10.0"
+pytest-xdist = "^1.29.0"
+pytest-parallel = "^0.1.1"
+
+# Additional Dev-Tools:
+# pip-search = "^0.0.12"
+# pip-autoremove = "^0.10.0"
+# pipdeptree = "^2.5.0"
+
+
+[tool.poetry.scripts]
+vds = 'vds.main:main'
+
+
+[tool.mypy]
+cache_dir = "/dev/null"
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_subclassing_any = false
+disallow_untyped_calls = true
+disallow_untyped_decorators = true
+disallow_untyped_defs = true
+no_implicit_reexport = true
+show_column_numbers = true
+strict_equality = true
+strict_concatenate = true
+warn_redundant_casts = true
+warn_return_any = false
+warn_unused_configs = true
+warn_unused_ignores = false
+
+
+[build-system]
+requires = ["poetry-core>=1.2.0"]
+build-backend = "poetry.core.masonry.api"
