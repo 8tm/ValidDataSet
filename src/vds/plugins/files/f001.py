@@ -11,7 +11,7 @@ class PluginInfo:
     name: str = 'WavsTranscriptionChecker'
     released: str = '23.2.26'
     type: str = 'FilePlugin'
-    version: str = '23.2.26'
+    version: str = '23.3.1'
 
 
 class ValidDataSetPlugin:
