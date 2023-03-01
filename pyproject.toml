@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vds"
-version = "23.3.1"
+version = "23.3.9"
 description = "ValidDataSet - TTS Lj Speech Dataset Validator"
 authors = ["Tadeusz Miszczyk <42252259+8tm@users.noreply.github.com>"]
 homepage = "http://github.com/8tm/ValidDataSet"
@@ -58,7 +58,8 @@ pytest-parallel = "^0.1.1"
 
 
 [tool.poetry.scripts]
-vds = 'vds.main:main'
+vds = "vds.main:main [posix]"
+vds-win = "vds.main:main [win32]"
 
 
 [tool.mypy]
