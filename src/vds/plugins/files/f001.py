@@ -27,7 +27,7 @@ class ValidDataSetPlugin:
         fixed_list_of_files = []
 
         for file_path in list_of_files:
-            fixed_list_of_files.append(str(file_path).replace(f'{path}/', ''))
+            fixed_list_of_files.append(str(file_path.relative_to(path)))
 
         list_of_files_in_transcriptions = []
 
