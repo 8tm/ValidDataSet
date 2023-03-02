@@ -1,4 +1,4 @@
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import List, Tuple
 
 from tqdm import tqdm  # type: ignore
@@ -11,7 +11,7 @@ class PluginInfo:
     name: str = 'WavsTranscriptionChecker'
     released: str = '23.2.26'
     type: str = 'FilePlugin'
-    version: str = '23.3.1'
+    version: str = '23.3.2'
 
 
 class ValidDataSetPlugin:
@@ -27,7 +27,7 @@ class ValidDataSetPlugin:
         fixed_list_of_files = []
 
         for file_path in list_of_files:
-            fixed_list_of_files.append(str(file_path.relative_to(path)))
+            fixed_list_of_files.append(str(PurePosixPath(file_path.relative_to(path))))
 
         list_of_files_in_transcriptions = []
 
@@ -37,7 +37,7 @@ class ValidDataSetPlugin:
 
             for line in Path(path / file_list).read_text(encoding='UTF-8').split('\n'):
                 wav_path, *_ = line.split('|')
-                list_of_files_in_transcriptions.append(wav_path)
+                list_of_files_in_transcriptions.append(str(PurePosixPath(wav_path)))
 
         for file in tqdm(fixed_list_of_files):
             if file not in list_of_files_in_transcriptions:

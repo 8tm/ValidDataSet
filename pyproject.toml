@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vds"
-version = "23.3.1"
+version = "23.3.2"
 description = "ValidDataSet - TTS Lj Speech Dataset Validator"
 authors = ["Tadeusz Miszczyk <42252259+8tm@users.noreply.github.com>"]
 homepage = "http://github.com/8tm/ValidDataSet"
