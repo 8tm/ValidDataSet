@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import List, Tuple
+from typing import Dict, List, Union
 
 
 class PluginInfo:
@@ -9,39 +9,46 @@ class PluginInfo:
     name: str = 'PunctuationMarksChecker'
     released: str = '23.2.26'
     type: str = 'TranscriptionPlugin'
-    version: str = '23.2.26'
+    version: str = '23.3.9'
 
 
 class ValidDataSetPlugin:
     info: PluginInfo = PluginInfo()
     errors: List[str] = []
     success_message: str = 'All PIPE characters used in the translation files are in the same quantity'
-    error_message: str = 'The PIPE symbol has been used more times than the default setting allows'
+    error_message: str = 'The PIPE symbol has been used more times than the default setting allows ' \
+                         '(in {nof} transcriptions)'
+    args: Dict[str, Union[str, List[str], Dict[str, int]]]
 
-    def run(self, path: Path, files: Tuple[Path], dir_name: str) -> None:  # pylint: disable=unused-argument
-        final_messages = []
-        default_number_of_pipes = 1
+    def run(self) -> None:
+        if not isinstance(self.args['path'], str) or not isinstance(self.args['expected_properties'], dict):
+            return None
 
-        for list_file_name in files:
+        for list_file_name in self.args['files']:
 
-            if not Path(path / list_file_name).exists():
-                final_messages.append(f'ERROR: FILE NOT FOUND IN DATASET: {list_file_name}')
+            list_file_path = Path(self.args['path']).joinpath(list_file_name)
+
+            if not list_file_path.exists():
+                self.errors.append(f'<invalid>ERROR: FILE NOT FOUND IN DATASET: {list_file_name}<invalid-end>')
                 continue
 
-            file_lines = list(Path(path / list_file_name).read_text(encoding='UTF-8').split('\n'))
+            file_lines = list(list_file_path.read_text(encoding='UTF-8').split('\n'))
 
             for line_number, line in enumerate(file_lines, start=1):
+
                 if line in ('', '\n\n'):
                     continue
 
                 pipes_number = line.count('|')
 
-                if pipes_number > default_number_of_pipes:
-                    final_messages.append(f'{str(list_file_name):>15}: {line_number:>6}: {line}')
-
-        if final_messages:
-            self.errors = [f'{self.info.id}: {self.error_message}:'] + final_messages
-        self.errors = final_messages
+                if pipes_number > int(self.args['expected_properties']['number_of_pipes']):
+                    self.errors.append(
+                        f'<file>{str(list_file_name):>15}<file-end>'
+                        f'<colon>: <colon-end>'
+                        f'<int>{line_number:>6}<int-end>'
+                        f'<colon>: <colon-end>'
+                        f'{line}',
+                    )
 
 
 def init_plugin() -> ValidDataSetPlugin:

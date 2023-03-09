@@ -1,5 +1,5 @@
 from pathlib import Path, PurePosixPath
-from typing import List, Tuple
+from typing import Dict, List, Union
 
 from tqdm import tqdm  # type: ignore
 
@@ -11,41 +11,43 @@ class PluginInfo:
     name: str = 'WavsTranscriptionChecker'
     released: str = '23.2.26'
     type: str = 'FilePlugin'
-    version: str = '23.3.2'
+    version: str = '23.3.9'
 
 
 class ValidDataSetPlugin:
     info: PluginInfo = PluginInfo()
     errors: List[str] = []
     success_message: str = 'All WAV files have been added to the transcription files'
-    error_message: str = 'Found files that were not added to the transcript files'
+    error_message: str = 'Found {nof} files that were not added to the transcript files'
+    args: Dict[str, Union[str, List[str], Dict[str, int]]]
 
-    def run(self, path: Path, files: Tuple[Path], dir_name: str) -> None:
-        final_messages = []
+    def run(self) -> None:
+        if not isinstance(self.args['path'], str) or not isinstance(self.args['dir_name'], str):
+            return None
 
-        list_of_files = list(Path(path / dir_name).glob('*.wav'))
+        list_of_files = list(Path(self.args['path']).joinpath(self.args['dir_name']).glob('*.wav'))
         fixed_list_of_files = []
 
         for file_path in list_of_files:
-            fixed_list_of_files.append(str(PurePosixPath(file_path.relative_to(path))))
+
+            fixed_list_of_files.append(str(PurePosixPath(file_path.relative_to(self.args['path']))))
 
         list_of_files_in_transcriptions = []
 
-        for file_list in files:
-            if not Path(path / file_list).exists():
+        for file_list in self.args['files']:
+
+            list_file_path = Path(self.args['path']).joinpath(file_list)
+
+            if not list_file_path.exists():
                 continue
 
-            for line in Path(path / file_list).read_text(encoding='UTF-8').split('\n'):
+            for line in list_file_path.read_text(encoding='UTF-8').split('\n'):
                 wav_path, *_ = line.split('|')
                 list_of_files_in_transcriptions.append(str(PurePosixPath(wav_path)))
 
-        for file in tqdm(fixed_list_of_files):
+        for file in tqdm(fixed_list_of_files, total=len(fixed_list_of_files), desc=f'{self.info.name}...'):
             if file not in list_of_files_in_transcriptions:
-                final_messages.append(f'{file:>44}')
-
-        if final_messages:
-            self.errors = [f'{self.info.id}: {self.error_message}:'] + final_messages
-        self.errors = final_messages
+                self.errors.append(f'{file:>44}')
 
 
 def init_plugin() -> ValidDataSetPlugin:

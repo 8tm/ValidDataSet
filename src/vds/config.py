@@ -12,4 +12,6 @@ class Config:
 
 
 class ValidDataSetPlugin:
-    pass
+    # pass
+    def init_plugin(self) -> str:
+        return 'FAKE'

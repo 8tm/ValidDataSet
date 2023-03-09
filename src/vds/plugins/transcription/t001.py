@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import List, Tuple
+from typing import Dict, List, Union
 
 
 class PluginInfo:
@@ -9,25 +9,25 @@ class PluginInfo:
     name: str = 'DatasetStructureChecker'
     released: str = '23.2.26'
     type: str = 'TranscriptionPlugin'
-    version: str = '23.2.26'
+    version: str = '23.3.9'
 
 
 class ValidDataSetPlugin:
     info: PluginInfo = PluginInfo()
     errors: List[str] = []
     success_message: str = 'All transcription files and the wavs folder exist'
-    error_message: str = 'Detected missing transcription file or "wavs" folder'
+    error_message: str = 'Detected {nof} missing transcription file or "wavs" folder'
+    args: Dict[str, Union[str, List[str], Dict[str, int]]]
 
-    def run(self, path: Path, files: Tuple[Path], dir_name: str) -> None:
-        final_messages = []
+    def run(self) -> None:
+        if not isinstance(self.args['path'], str)             \
+                or not isinstance(self.args['dir_name'], str) \
+                or not isinstance(self.args['files'], list):
+            return None
 
-        for file in (dir_name,) + files:
-            if not (Path(path) / str(file)).exists():
-                final_messages.append(f'{str(file):>15}')
-
-        if final_messages:
-            self.errors = [f'{self.info.id}: {self.error_message}:'] + final_messages
-        self.errors = final_messages
+        for file in self.args['files'] + [self.args['dir_name']]:
+            if not Path(self.args['path']).joinpath(file).exists():
+                self.errors.append(f'{str(file):>15}')
 
 
 def init_plugin() -> ValidDataSetPlugin:
