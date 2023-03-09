@@ -29,6 +29,7 @@ class ValidDataSetPlugin:
         fixed_list_of_files = []
 
         for file_path in list_of_files:
+
             fixed_list_of_files.append(str(PurePosixPath(file_path.relative_to(self.args['path']))))
 
         list_of_files_in_transcriptions = []
