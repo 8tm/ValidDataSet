@@ -23,7 +23,7 @@ def parser() -> argparse.ArgumentParser:
     )
     argument_parser.add_argument(
         '--args.dir-name', type=str, action='store', required=False, default='wavs',
-        dest='args_dir_name', help='Name of foldr with wav files',
+        dest='args_dir_name', help='Name of folder with wav files',
     )
     argument_parser.add_argument(
         '--args.path', type=str, action='store', required=False, default='',
