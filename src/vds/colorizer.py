@@ -18,6 +18,14 @@ class Tags:
             'color': Fore.RED,
             'style': Style.NORMAL,
         },
+        'warning': {
+            'color': Fore.YELLOW,
+            'style': Style.NORMAL,
+        },
+        'info': {
+            'color': Fore.CYAN,
+            'style': Style.NORMAL,
+        },
         'file': {
             'color': Fore.LIGHTCYAN_EX,
             'style': Style.NORMAL,

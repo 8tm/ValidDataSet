@@ -28,6 +28,7 @@ class ValidDataSetPlugin:
     def format_message(self, err_type):
         value = '{value}'
         _status_ok = f'<valid>{value}<valid-end>'
+        _status_warning = f'<warning>{value}<warning-end>'
         _status_fail = f'<invalid>{value}<invalid-end>'
 
         status = "{unknown}"
@@ -38,7 +39,7 @@ class ValidDataSetPlugin:
             if err_type == 0:
                 status = _status_fail.format(value='is not a WAV file')
             elif err_type == 1:
-                status = _status_fail.format(value='has metadata (exported from Audacity?)')
+                status = _status_warning.format(value='has metadata (exported from Audacity?)')
             elif err_type == 2:
                 status = _status_fail.format(value='truncated')
             elif err_type == 3:
