@@ -40,7 +40,7 @@ class ValidDataSetPlugin:
                     continue
 
                 _, *transcription = line.split('|')
-                text = '|'.join(transcription)
+                text = '|'.join(transcription).strip()
 
                 if len(text.translate(str.maketrans('', '', string.punctuation + ' '))) == 0:
                     continue

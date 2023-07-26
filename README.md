@@ -20,17 +20,18 @@ Descriptions of current plugins can be found in the [Plugins](#plugins) section.
 
 Below is a list of currently used plugins (new ones will be added over time).
 
-| ID   | Name                                | Version | Description                                                                 |
-|------|-------------------------------------|---------|-----------------------------------------------------------------------------|
-| F001 | WavsTranscriptionChecker            | 23.3.9  | Check if all files have been added to the transcription files               |
-| F002 | WavPropertiesChecker                | 23.3.9  | Check if all files are mono, 22050 Hz with length between 2 and 10 seconds  |
-| T001 | DatasetStructureChecker             | 23.3.9  | Check if the "wavs" folder and transcription files exist in the dataset     |
-| T002 | EmptyLineChecker                    | 23.3.9  | Check if there are empty lines in the transcriptions                        |
-| T003 | FilesInTranscriptionChecker         | 23.3.9  | Check if all files added to transcription exist                             |
-| T004 | ExistingWavFileTranscriptionChecker | 23.3.9  | Check if all files added to transcription have a transcription              |
-| T005 | PunctuationMarksChecker             | 23.3.9  | Check if all transcriptions end with punctuation marks: ".", "?" or "!"     |
-| T006 | PunctuationMarksChecker             | 23.3.9  | Check if all lines have the same number of PIPE characters                  |
-| T007 | DuplicatedTranscriptionChecker      | 23.3.9  | Check if there are any duplicate paths to WAV files in the transcriptions   |
+| ID   | Name                                | Version | Description                                                                                  |
+|------|-------------------------------------|---------|----------------------------------------------------------------------------------------------|
+| F001 | WavsTranscriptionChecker            | 23.3.9  | Check if all files have been added to the transcription files                                |
+| F002 | WavPropertiesChecker                | 23.3.9  | Check if all files are mono, 22050 Hz with length between 2 and 10 seconds                   |
+| F003 | WavCorrectnessChecker               | 23.4.2  | Check if all wav files will not throw WavFileWarning on load or they don't have other errors |
+| T001 | DatasetStructureChecker             | 23.3.9  | Check if the "wavs" folder and transcription files exist in the dataset                      |
+| T002 | EmptyLineChecker                    | 23.3.9  | Check if there are empty lines in the transcriptions                                         |
+| T003 | FilesInTranscriptionChecker         | 23.3.9  | Check if all files added to transcription exist                                              |
+| T004 | ExistingWavFileTranscriptionChecker | 23.3.9  | Check if all files added to transcription have a transcription                               |
+| T005 | PunctuationMarksChecker             | 23.3.9  | Check if all transcriptions end with punctuation marks: ".", "?" or "!"                      |
+| T006 | PunctuationMarksChecker             | 23.3.9  | Check if all lines have the same number of PIPE characters                                   |
+| T007 | DuplicatedTranscriptionChecker      | 23.3.9  | Check if there are any duplicate paths to WAV files in the transcriptions                    |
 
 ## <a id="installation"></a>Installation    <font size="1">[ [Menu](#menu) ]</font>
 
